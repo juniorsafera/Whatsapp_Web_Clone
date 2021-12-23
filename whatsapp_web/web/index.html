@@ -94,5 +94,41 @@
       loadMainDartJs();
     }
   </script>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script> // firebase
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> // autenticar usuarios
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> // banco de dados
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script> // imagens de usuarios
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyB8DCbbP-rnpTPpAQ_F3rg8jyUbd6NdHZU",
+    authDomain: "whatsapp-web-d1b94.firebaseapp.com",
+    projectId: "whatsapp-web-d1b94",
+    storageBucket: "whatsapp-web-d1b94.appspot.com",
+    messagingSenderId: "1022317007926",
+    appId: "1:1022317007926:web:e64fcda2f0854d6ff73497",
+    measurementId: "G-7N40B0V47P"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+ 
+
+
 </body>
 </html>
