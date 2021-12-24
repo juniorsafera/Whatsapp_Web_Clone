@@ -59,25 +59,31 @@ class _TelaLoginState extends State<TelaLogin> {
                                   
                                   // Imagem perfil com botão
 
+                                   
                                   Visibility(
                                     visible: _cadastroUsuario,
-                                    child: 
-                                  ClipOval(
-                                      child: 
-                                       Image.asset("assets/perfil.png",
-                                       width: 120,
-                                       height: 120,
-                                       fit: BoxFit.cover,
-                                       ), 
-                                                                            
-                                  ),
-
-                                
-
+                                    child: ClipOval(
+                                        child: 
+                                         Image.asset("assets/perfil.png",
+                                         width: 120,
+                                         height: 120,
+                                         fit: BoxFit.cover,
+                                         ), 
+                                                                              
+                                    ),
                                   ),
 
                                   SizedBox(height: 8,),
 
+                                  Visibility(
+                                    visible: _cadastroUsuario,
+                                    child: OutlineButton(
+                                      onPressed: (){},
+                                      child: Text("Selecione foto"),
+                                      ),
+                                      ),
+                              
+                                  SizedBox(height: 8,),
 
                                   // Caixa nome
                                   Visibility(
