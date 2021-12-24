@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
+
 
 class TelaLogin extends StatefulWidget {
   const TelaLogin({ Key? key }) : super(key: key);
@@ -14,6 +16,55 @@ class _TelaLoginState extends State<TelaLogin> {
       TextEditingController _controllerEmail = TextEditingController(text: 'junior@gmail.com');
       TextEditingController _controllerSenha = TextEditingController(text: '1234567');
       bool _cadastroUsuario = false;
+
+      FirebaseAuth _auth = FirebaseAuth.instance;
+       
+
+
+      _validarCampos() async{
+
+        String nome = _controllerNome.text;
+        String email = _controllerEmail.text;
+        String senha = _controllerSenha.text;
+
+        if(email.isNotEmpty && email.contains("@")) {
+          if(senha.isNotEmpty && senha.length > 6)  {
+            if(_cadastroUsuario){
+                // Cadastro
+                if(nome.isNotEmpty && nome.length > 2){
+
+                  await _auth.createUserWithEmailAndPassword(
+                    email: email, 
+                    password: senha
+
+                    ).then((auth){
+                      //Upload da imagem
+                      // Cadastrar usuário
+                      String? idUsuario = auth.user?.uid;
+                      print("Usuário cadastrado: $idUsuario");
+                    });
+
+                } else {
+                  print("Nome inválido!");
+                }
+            } else{
+              // Login
+              await _auth.signInWithEmailAndPassword(
+                email: email, 
+                password: senha).then((auth){
+                  String? emailUsuario = auth.user?.email;
+                  print("Usuario: $emailUsuario Logado!");
+                });
+            }
+          }      // senha
+          else {
+            print("Senha inválida!");
+                 }
+        }  // email
+        else {
+          print("Email inválido!");
+        }
+      }
 
   
   @override
@@ -77,6 +128,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
                                   Visibility(
                                     visible: _cadastroUsuario,
+                                    // ignore: deprecated_member_use
                                     child: OutlineButton(
                                       onPressed: (){},
                                       child: Text("Selecione foto"),
@@ -131,7 +183,7 @@ class _TelaLoginState extends State<TelaLogin> {
                                 Container(
                                   width: double.infinity,
                                   child: ElevatedButton(
-                                  onPressed: (){}, 
+                                  onPressed: _validarCampos, 
                                   style: ElevatedButton.styleFrom(
                                     primary: PaletaCores.corPrimaria,
                                   ),
