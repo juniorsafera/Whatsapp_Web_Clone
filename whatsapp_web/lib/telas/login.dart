@@ -43,6 +43,7 @@ class _TelaLoginState extends State<TelaLogin> {
                   child: Padding(
                     padding: EdgeInsets.all(16),
                     child: Card(
+                          
                           elevation: 4,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(
@@ -52,7 +53,7 @@ class _TelaLoginState extends State<TelaLogin> {
                           child: Container(
                             padding: EdgeInsets.all(40),
                             width: 500,
-                            height: 400,
+                             
                             child: Column(
                               children: [
                                   
@@ -63,14 +64,19 @@ class _TelaLoginState extends State<TelaLogin> {
                                     child: 
                                   ClipOval(
                                       child: 
-                                      //Text("Teste"),
-                                      Icon(
-                                        Icons.account_circle,
-                                         
-                                        color: PaletaCores.corPrimaria,
-                                      )
+                                       Image.asset("assets/perfil.png",
+                                       width: 120,
+                                       height: 120,
+                                       fit: BoxFit.cover,
+                                       ), 
+                                                                            
                                   ),
+
+                                
+
                                   ),
+
+                                  SizedBox(height: 8,),
 
 
                                   // Caixa nome
@@ -133,6 +139,8 @@ class _TelaLoginState extends State<TelaLogin> {
                                     ),
                                 ),
 
+
+                              // Caixa opções 'Entrar/Cadastrar'
                                 Row(
                                   children: [
                                     Text("Login"),
@@ -145,7 +153,7 @@ class _TelaLoginState extends State<TelaLogin> {
                                         );
                                       }
                                       ),
-                                    Text("Cadastro"),
+                                    Text("Cadastrar"),
                                   ],
                                 ),
 
@@ -153,6 +161,7 @@ class _TelaLoginState extends State<TelaLogin> {
                               ],
                             ),
                           ),
+
                           ),
                   ),
                 ),)
