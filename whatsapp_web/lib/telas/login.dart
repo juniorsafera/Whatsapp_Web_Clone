@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
 
@@ -16,8 +20,45 @@ class _TelaLoginState extends State<TelaLogin> {
       TextEditingController _controllerEmail = TextEditingController(text: 'junior@gmail.com');
       TextEditingController _controllerSenha = TextEditingController(text: '1234567');
       bool _cadastroUsuario = false;
+      Uint8List? _imagemSelecionada;
 
       FirebaseAuth _auth = FirebaseAuth.instance;
+      FirebaseStorage _storage = FirebaseStorage.instance;
+
+
+      _selecionarImagem() async {
+        
+        // Selecionar imagem
+        FilePickerResult? resultado = await FilePicker.platform.pickFiles(
+          type: FileType.image
+        );
+
+        // Recuperar imagem
+        setState(() {
+          _imagemSelecionada = resultado?.files.single.bytes;
+        });
+
+      }
+      
+
+      _uploadImagem(String idUsuario){
+
+      Uint8List? imagem = _imagemSelecionada;
+
+      if(imagem != null){
+
+        Reference imagemPerfilRef = _storage.ref("imagens/perfil/$idUsuario.jpg");
+        UploadTask upload = imagemPerfilRef.putData(imagem);
+
+        upload.whenComplete(() async {
+          String linkImagem = await upload.snapshot.ref.getDownloadURL();
+          print("link da imagem: $linkImagem");
+        });
+
+      }
+
+
+      }
        
 
 
@@ -29,8 +70,12 @@ class _TelaLoginState extends State<TelaLogin> {
 
         if(email.isNotEmpty && email.contains("@")) {
           if(senha.isNotEmpty && senha.length > 6)  {
+
+
             if(_cadastroUsuario){
-                // Cadastro
+
+              if(_imagemSelecionada != null){
+                  // Cadastro
                 if(nome.isNotEmpty && nome.length > 2){
 
                   await _auth.createUserWithEmailAndPassword(
@@ -38,15 +83,23 @@ class _TelaLoginState extends State<TelaLogin> {
                     password: senha
 
                     ).then((auth){
-                      //Upload da imagem
+                       
                       // Cadastrar usuário
                       String? idUsuario = auth.user?.uid;
-                      print("Usuário cadastrado: $idUsuario");
+                      // Upload imagem perfil
+                      if(idUsuario != null){
+                        _uploadImagem(idUsuario);
+                      }
+                     // print("Usuário cadastrado: $idUsuario");
                     });
 
                 } else {
                   print("Nome inválido!");
                 }
+              } else {
+                print("Selecione uma imagem de perfil!");
+              }
+               
             } else{
               // Login
               await _auth.signInWithEmailAndPassword(
@@ -114,23 +167,30 @@ class _TelaLoginState extends State<TelaLogin> {
                                   Visibility(
                                     visible: _cadastroUsuario,
                                     child: ClipOval(
-                                        child: 
-                                         Image.asset("assets/perfil.png",
-                                         width: 120,
-                                         height: 120,
-                                         fit: BoxFit.cover,
+                                        child:  _imagemSelecionada != null
+                                              ? Image.memory(
+                                                _imagemSelecionada!,
+                                                width: 120,
+                                                height: 120,
+                                                fit: BoxFit.cover,
+                                                )
+                                              : Image.asset("assets/perfil.png",
+                                                width: 120,
+                                                height: 120,
+                                                fit: BoxFit.cover,
                                          ), 
                                                                               
                                     ),
                                   ),
 
                                   SizedBox(height: 8,),
-
+                                
+                                // Botão selecione foto
                                   Visibility(
                                     visible: _cadastroUsuario,
                                     // ignore: deprecated_member_use
                                     child: OutlineButton(
-                                      onPressed: (){},
+                                      onPressed: _selecionarImagem,
                                       child: Text("Selecione foto"),
                                       ),
                                       ),
