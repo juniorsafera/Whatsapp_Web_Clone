@@ -107,7 +107,7 @@ class _TelaLoginState extends State<TelaLogin> {
                 password: senha).then((auth){
                   String? emailUsuario = auth.user?.email;
                   print("Usuario: $emailUsuario Logado!");
-                });
+                }).onError((error, stackTrace) => null);
             }
           }      // senha
           else {
