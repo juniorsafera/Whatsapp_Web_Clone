@@ -133,6 +133,32 @@ class _TelaLoginState extends State<TelaLogin> {
                 }).onError((e,s){
                   if(e != null){
                     print("Usuario não encontrado!");
+                    showDialog(
+                      context: context, 
+                      builder: (BuildContext context) => 
+
+                      AlertDialog(
+                          //title: Text('Atenção'),
+                          content: Text('Usuário não encontrado!'),
+                          actions: [
+                            FlatButton(
+                              onPressed: (){
+                                Navigator.pop(context, 'Cancelar');
+                              }, 
+                              child: Text("Cancelar"),
+                              ),
+                            
+                            FlatButton(
+                              onPressed: (){
+                                 Navigator.pop(context, 'Cancelar');
+                              }, 
+                              child: Text("OK"),
+                              ),
+                          ],
+                        )
+                        
+                      )
+                      .then((value) => null);
                   }
                 });
             }
