@@ -44,7 +44,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
       }
       
-      // UPLOAD DE IMAGEM DE PERFIL E USUARIO
+      // UPLOAD DE IMAGEM DE PERFIL E SALVAR USUARIO NO BD
       _uploadImagem(ModeloUsuario usuario){
 
       Uint8List? imagem = _imagemSelecionada;
