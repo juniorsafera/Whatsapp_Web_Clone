@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
 
 
@@ -20,10 +22,12 @@ class _TelaLoginState extends State<TelaLogin> {
       TextEditingController _controllerEmail = TextEditingController(text: 'junior@gmail.com');
       TextEditingController _controllerSenha = TextEditingController(text: '1234567');
       bool _cadastroUsuario = false;
+
       Uint8List? _imagemSelecionada;
 
       FirebaseAuth _auth = FirebaseAuth.instance;
       FirebaseStorage _storage = FirebaseStorage.instance;
+      FirebaseFirestore _db = FirebaseFirestore.instance;
 
 
       _selecionarImagem() async {
@@ -40,19 +44,32 @@ class _TelaLoginState extends State<TelaLogin> {
 
       }
       
-
-      _uploadImagem(String idUsuario){
+      // UPLOAD DE IMAGEM DE PERFIL E USUARIO
+      _uploadImagem(ModeloUsuario usuario){
 
       Uint8List? imagem = _imagemSelecionada;
 
       if(imagem != null){
 
-        Reference imagemPerfilRef = _storage.ref("imagens/perfil/$idUsuario.jpg");
+        Reference imagemPerfilRef = _storage.ref("imagens/perfil/${usuario.idUsuario}.jpg");
         UploadTask upload = imagemPerfilRef.putData(imagem);
 
         upload.whenComplete(() async {
           String linkImagem = await upload.snapshot.ref.getDownloadURL();
+          usuario.imagemPerfil = linkImagem;
           print("link da imagem: $linkImagem");
+          final usuariosRef = _db.collection("usuarios");
+          usuariosRef.doc("idUsuario")
+          .set(usuario.toMap())
+          .then((value){
+            // TELA PRINCIPAL
+            Navigator.pushReplacementNamed(context, "/home");
+          }).onError( (e,v){
+              if(e != null){
+                  print("ERRO!!");
+              }
+          }
+          );
         });
 
       }
@@ -88,7 +105,12 @@ class _TelaLoginState extends State<TelaLogin> {
                       String? idUsuario = auth.user?.uid;
                       // Upload imagem perfil
                       if(idUsuario != null){
-                        _uploadImagem(idUsuario);
+                        ModeloUsuario usuario = ModeloUsuario(
+                          idUsuario, 
+                          nome, 
+                          email
+                          );
+                        _uploadImagem(usuario);
                       }
                      // print("Usuário cadastrado: $idUsuario");
                     });
@@ -105,9 +127,14 @@ class _TelaLoginState extends State<TelaLogin> {
               await _auth.signInWithEmailAndPassword(
                 email: email, 
                 password: senha).then((auth){
-                  String? emailUsuario = auth.user?.email;
-                  print("Usuario: $emailUsuario Logado!");
-                }).onError((error, stackTrace) => null);
+                  
+                  // TELA PRINCIPAL
+                  Navigator.pushReplacementNamed(context, "/home");
+                }).onError((e,s){
+                  if(e != null){
+                    print("Usuario não encontrado!");
+                  }
+                });
             }
           }      // senha
           else {

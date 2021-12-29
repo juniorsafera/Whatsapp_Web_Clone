@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:whatsapp_web/telas/login.dart';
+import 'package:whatsapp_web/rotas.dart';
 
 void main() {
   runApp(MaterialApp(  
     debugShowCheckedModeBanner: false,
     title: "WhatsApp Web",
-    home: TelaLogin(),
+ //   home: TelaLogin(),
+
+ initialRoute: "/login",
+ onGenerateRoute: Rotas.gerarRota,
   ));
 }
  
