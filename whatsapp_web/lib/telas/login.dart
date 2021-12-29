@@ -62,7 +62,7 @@ class _TelaLoginState extends State<TelaLogin> {
           usuariosRef.doc("idUsuario")
           .set(usuario.toMap())
           .then((value){
-            // TELA PRINCIPAL
+            // DIRECIONAR PARA TELA PRINCIPAL
             Navigator.pushReplacementNamed(context, "/home");
           }).onError( (e,v){
               if(e != null){
