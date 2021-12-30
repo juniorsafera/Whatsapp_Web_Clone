@@ -30,6 +30,16 @@ class _TelaLoginState extends State<TelaLogin> {
       FirebaseFirestore _db = FirebaseFirestore.instance;
 
 
+      _verificarUsuarioLogado() async {
+        User? usuarioLogado = await _auth.currentUser;
+
+        if(usuarioLogado != null){
+          // Direcionar para tela principal
+          Navigator.pushReplacementNamed(context, "/home");
+        }
+      }
+
+
       _selecionarImagem() async {
         
         // Selecionar imagem
@@ -141,6 +151,7 @@ class _TelaLoginState extends State<TelaLogin> {
                           //title: Text('Atenção'),
                           content: Text('Usuário não encontrado!'),
                           actions: [
+                            // ignore: deprecated_member_use
                             FlatButton(
                               onPressed: (){
                                 Navigator.pop(context, 'Cancelar');
@@ -148,6 +159,7 @@ class _TelaLoginState extends State<TelaLogin> {
                               child: Text("Cancelar"),
                               ),
                             
+                            // ignore: deprecated_member_use
                             FlatButton(
                               onPressed: (){
                                  Navigator.pop(context, 'Cancelar');
@@ -172,6 +184,12 @@ class _TelaLoginState extends State<TelaLogin> {
         }
       }
 
+
+  // ignore: must_call_super
+  void initState(){
+    super.initState();
+    _verificarUsuarioLogado();
+  }
   
   @override
   Widget build(BuildContext context) {
