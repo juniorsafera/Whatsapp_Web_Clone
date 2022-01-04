@@ -151,18 +151,11 @@ class _TelaLoginState extends State<TelaLogin> {
                           //title: Text('Atenção'),
                           content: Text('Usuário não encontrado!'),
                           actions: [
+                             
                             // ignore: deprecated_member_use
                             FlatButton(
                               onPressed: (){
-                                Navigator.pop(context, 'Cancelar');
-                              }, 
-                              child: Text("Cancelar"),
-                              ),
-                            
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                              onPressed: (){
-                                 Navigator.pop(context, 'Cancelar');
+                                 Navigator.pop(context, 'Ok');
                               }, 
                               child: Text("OK"),
                               ),

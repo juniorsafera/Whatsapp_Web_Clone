@@ -35,7 +35,27 @@ class _HomeMobileState extends State<HomeMobile> {
               ),
 
           ],
+
+        bottom: TabBar(
+          indicatorColor: Colors.white,
+          indicatorWeight: 4,
+          labelStyle: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+          ),
+          tabs: [
+            Tab(text: 'Conversas',),
+            Tab(text: 'Contatos',),
+          ],
         ),
+
+        ),
+
+        body: SafeArea(child: TabBarView(children: [
+          Center(child: Text('Conversas'),),
+          Center(child: Text('Contatos'),),
+        ]),),
+        
       )
       );
   }
