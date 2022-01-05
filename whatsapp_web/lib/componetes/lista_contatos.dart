@@ -56,6 +56,7 @@ class _ListaContatosState extends State<ListaContatos> {
     // TODO: implement initState
     super.initState();
     _recuperarUsuarioLogado();
+     
   }
 
   @override
