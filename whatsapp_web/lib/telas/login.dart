@@ -69,7 +69,7 @@ class _TelaLoginState extends State<TelaLogin> {
           usuario.imagemPerfil = linkImagem;
           print("link da imagem: $linkImagem");
           final usuariosRef = _db.collection("usuarios");
-          usuariosRef.doc("idUsuario")
+          usuariosRef.doc(usuario.idUsuario)
           .set(usuario.toMap())
           .then((value){
             // DIRECIONAR PARA TELA PRINCIPAL

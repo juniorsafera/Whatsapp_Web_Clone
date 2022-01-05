@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/componetes/lista_contatos.dart';
 
 class HomeMobile extends StatefulWidget {
   const HomeMobile({ Key? key }) : super(key: key);
@@ -53,7 +54,10 @@ class _HomeMobileState extends State<HomeMobile> {
 
         body: SafeArea(child: TabBarView(children: [
           Center(child: Text('Conversas'),),
-          Center(child: Text('Contatos'),),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal:8),
+            child: ListaContatos(),
+            )
         ]),),
         
       )
