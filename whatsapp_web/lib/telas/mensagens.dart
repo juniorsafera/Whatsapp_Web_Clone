@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/componetes/lista_mensagens.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
 
 class TelaMensagens extends StatefulWidget {
@@ -66,6 +67,10 @@ class _TelaMensagensState extends State<TelaMensagens> {
            )
          ],
       ),
+
+      body: SafeArea(
+        child: ListaMensagens() ,
+        ),
 
     );
   }
