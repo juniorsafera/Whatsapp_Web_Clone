@@ -18,13 +18,13 @@ class _ListaContatosState extends State<ListaContatos> {
 
   // INICIO MÉTODO RECUPERAR CONTATOS
   Future<List<ModeloUsuario>> _recuperarContatos() async {
-    final _refUsuarios = _bd.collection("usuarios");
+    final _refUsuarios = _bd.collection("usuarios"); // COLEÇÃO
     QuerySnapshot qs = await _refUsuarios.get();
     List<ModeloUsuario> listaUsuarios = [];
 
     for (DocumentSnapshot item in qs.docs) {
       String idUsuario = item['idUsuario'];
-      if(idUsuario == idUsuarioLogad) continue;
+      if(idUsuario == idUsuarioLogad) continue; // ignorar usuario logado
       String nome = item['nome'];
       String email = item['email'];
       String imagemPerfil = item['imagemPerfil'];
@@ -53,6 +53,7 @@ class _ListaContatosState extends State<ListaContatos> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     _recuperarUsuarioLogado();

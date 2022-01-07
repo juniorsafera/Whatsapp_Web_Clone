@@ -33,7 +33,9 @@ class Rotas{
   static Route<dynamic>  _erroRota(){
     return MaterialPageRoute(builder: (_){
         return Scaffold(
-          appBar: AppBar(title: Text("Página não encontrada!"),),
+          appBar: AppBar(
+            title: Text("Página não encontrada!"),
+            ),
           body: Center(
             child: Text("Página não encontrada!"),
           ),
