@@ -54,7 +54,9 @@ class _HomeMobileState extends State<HomeMobile> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: ListaContatos(),
-              )
+              ),
+
+               
             ]),
           ),
         ));
