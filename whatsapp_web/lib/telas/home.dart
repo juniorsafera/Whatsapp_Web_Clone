@@ -12,6 +12,7 @@ class TelaHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Responsivo(
       mobile: HomeMobile(),
+      tablet: HomeTablet(),
       desktop: HomeDesktop(),
      //tablet: HomeTablet(),
       );

@@ -6,13 +6,16 @@ import 'package:whatsapp_web/rotas.dart';
 
 
 final ThemeData temaPadrao = ThemeData(
-  primaryColor: PaletaCores.corPrimaria,
-  accentColor: PaletaCores.corDestaque,
+
 );
 void main() {
   runApp(MaterialApp(  
     debugShowCheckedModeBanner: false,
-    theme: temaPadrao,
+    theme: temaPadrao.copyWith(
+      colorScheme: temaPadrao.colorScheme.copyWith(
+        primary: PaletaCores.corPrimaria,
+        secondary: PaletaCores.corDestaque )
+     )  ,
     title: "WhatsApp Web",
  //   home: TelaLogin(),
 

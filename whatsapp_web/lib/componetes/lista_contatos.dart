@@ -64,8 +64,8 @@ class _ListaContatosState extends State<ListaContatos> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<ModeloUsuario>>(
       future: _recuperarContatos(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
+      builder: (context, snapshot_b) {
+        switch (snapshot_b.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
             return Center(
@@ -80,12 +80,12 @@ class _ListaContatosState extends State<ListaContatos> {
             );
           case ConnectionState.active:
           case ConnectionState.done:
-            if (snapshot.hasError) {
+            if (snapshot_b.hasError) {
               return Center(
                 child: Text('Erro ao carregar os dados!'),
               );
             } else {
-              List<ModeloUsuario>? listaUsuarios = snapshot.data;
+              List<ModeloUsuario>? listaUsuarios = snapshot_b.data;
               if (listaUsuarios != null) {
                 return ListView.separated(
                   separatorBuilder: (context, indice) {
@@ -96,18 +96,20 @@ class _ListaContatosState extends State<ListaContatos> {
                   },
                   itemCount: listaUsuarios.length,
                   itemBuilder: (context, indice) {
-                    ModeloUsuario usuarios = listaUsuarios[indice];
+                    ModeloUsuario usuarios_item = listaUsuarios[indice];
                     return ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/mensagens', arguments: usuarios_item);
+                      },
                       leading: CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.grey,
                         backgroundImage:
-                            CachedNetworkImageProvider(usuarios.imagemPerfil),
+                            CachedNetworkImageProvider(usuarios_item.imagemPerfil),
                       ),
                       contentPadding: EdgeInsets.all(8),
                       title: Text(
-                        usuarios.nome,
+                        usuarios_item.nome,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold
