@@ -18,7 +18,7 @@ class _ListaContatosState extends State<ListaContatos> {
 
   // INICIO MÉTODO RECUPERAR CONTATOS
   Future<List<ModeloUsuario>> _recuperarContatos() async {
-    final _refUsuarios = _bd.collection("usuarios"); // COLEÇÃO
+    final _refUsuarios = _bd.collection("usuarios").orderBy('nome', descending: false); // COLEÇÃO
     QuerySnapshot qs = await _refUsuarios.get();
     List<ModeloUsuario> listaUsuarios = [];
 
