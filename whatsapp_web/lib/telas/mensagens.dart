@@ -28,7 +28,7 @@ class _TelaMensagensState extends State<TelaMensagens> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     _recuperarDadosIniciais();
 
