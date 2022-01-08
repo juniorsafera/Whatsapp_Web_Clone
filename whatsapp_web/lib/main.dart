@@ -12,7 +12,7 @@ final ThemeData temaPadrao = ThemeData(
 );
 void main() {
   
-Firebase.initializeApp();
+ 
   
   runApp(MaterialApp(  
     
