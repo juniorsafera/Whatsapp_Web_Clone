@@ -20,7 +20,7 @@ class _TelaLoginState extends State<TelaLogin> {
 
       TextEditingController _controllerNome  = TextEditingController(text: 'Junior Santos');
       TextEditingController _controllerEmail = TextEditingController(text: 'junior@gmail.com');
-      TextEditingController _controllerSenha = TextEditingController(text: '1234567');
+      TextEditingController _controllerSenha = TextEditingController(text: '12345678');
       bool _cadastroUsuario = false;
 
       Uint8List? _imagemSelecionada;
@@ -30,16 +30,17 @@ class _TelaLoginState extends State<TelaLogin> {
       FirebaseFirestore _db = FirebaseFirestore.instance;
 
 
-      _verificarUsuarioLogado() async {
-        User? usuarioLogado = await _auth.currentUser;
+/*
+        _verificarUsuarioLogado()   {
+          User? usuarioLogado =   _auth.currentUser;
 
-        if(usuarioLogado != null){
-          // Direcionar para tela principal
-          Navigator.pushReplacementNamed(context, "/home");
+          if(usuarioLogado != null){
+            // Direcionar para tela principal
+            Navigator.pushReplacementNamed(context, "/home");
+          }
         }
-      }
 
-
+*/
       _selecionarImagem() async {
         
         // Selecionar imagem
@@ -67,13 +68,19 @@ class _TelaLoginState extends State<TelaLogin> {
         upload.whenComplete(() async {
           String linkImagem = await upload.snapshot.ref.getDownloadURL();
           usuario.imagemPerfil = linkImagem;
-          print("link da imagem: $linkImagem");
+
+          // ATUALIZA URL E NOME NOS DADOS DO USUÁRIO
+          await _auth.currentUser?.updateDisplayName(usuario.nome);
+          await _auth.currentUser?.updatePhotoURL(usuario.imagemPerfil);
+           
           final usuariosRef = _db.collection("usuarios");
           usuariosRef.doc(usuario.idUsuario)
           .set(usuario.toMap())
           .then((value){
+
             // DIRECIONAR PARA TELA PRINCIPAL
             Navigator.pushReplacementNamed(context, "/home");
+
           }).onError( (e,v){
               if(e != null){
                   print("ERRO!!");
@@ -178,11 +185,7 @@ class _TelaLoginState extends State<TelaLogin> {
       }
 
 
-  // ignore: must_call_super
-  void initState(){
-    super.initState();
-    _verificarUsuarioLogado();
-  }
+   
   
   @override
   Widget build(BuildContext context) {

@@ -12,7 +12,14 @@ final ThemeData temaPadrao = ThemeData(
 );
 void main() {
   
- 
+  // VERIFICAR SE O USUARIO ESTÁ LOGADO
+ User? usuarioFirebase = FirebaseAuth.instance.currentUser;
+        String urlInicial = "/";
+        if( usuarioFirebase != null ) {
+        urlInicial = "/home";
+        }
+
+
   
   runApp(MaterialApp(  
     
@@ -25,7 +32,7 @@ void main() {
     title: "WhatsApp Web",
  //   home: TelaLogin(),
 
- initialRoute: "/login",
+ initialRoute: urlInicial,
  onGenerateRoute: Rotas.gerarRota,
   ));
 }

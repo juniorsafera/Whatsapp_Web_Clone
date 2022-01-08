@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/componetes/lista_mensagens.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
@@ -6,6 +7,7 @@ import 'package:whatsapp_web/modelos/usuario.dart';
 class TelaMensagens extends StatefulWidget {
   
   final ModeloUsuario usuarioDestinatario;
+
   const TelaMensagens(
 
     this.usuarioDestinatario,
@@ -20,10 +22,28 @@ class TelaMensagens extends StatefulWidget {
 
 class _TelaMensagensState extends State<TelaMensagens> {
 
+  late ModeloUsuario _usuarioRemetente;
   late ModeloUsuario _usuarioDestinatario;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   _recuperarDadosIniciais(){
+     
     _usuarioDestinatario = widget.usuarioDestinatario;
+
+    User? usuarioLogado = _auth.currentUser;
+    if (usuarioLogado != null) {
+      String idUsuario = usuarioLogado.uid;
+      String nome = usuarioLogado.displayName ?? "";
+      String email = usuarioLogado.email ?? "";
+      String imagemPerfil = usuarioLogado.photoURL ?? "";
+
+      _usuarioRemetente = ModeloUsuario(
+        idUsuario,
+        nome,
+        email,
+        imagemPerfil: imagemPerfil
+      );
+    }
   }
 
   @override
@@ -69,7 +89,10 @@ class _TelaMensagensState extends State<TelaMensagens> {
       ),
 
       body: SafeArea(
-        child: ListaMensagens() ,
+        child: ListaMensagens(
+          usuarioRemetente: _usuarioRemetente,
+          usuarioDestinatario: _usuarioRemetente,
+        ) ,
         ),
 
     );

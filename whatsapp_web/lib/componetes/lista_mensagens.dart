@@ -1,14 +1,77 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/modelos/mensagem.dart';
+import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
 
 class ListaMensagens extends StatefulWidget {
-  const ListaMensagens({Key? key}) : super(key: key);
+
+  final ModeloUsuario usuarioRemetente;
+  final ModeloUsuario usuarioDestinatario;
+
+  const ListaMensagens({Key? key,
+    required this.usuarioRemetente,
+    required this.usuarioDestinatario,
+  }) : super(key: key);
 
   @override
   _ListaMensagensState createState() => _ListaMensagensState();
 }
 
 class _ListaMensagensState extends State<ListaMensagens> {
+
+  FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  TextEditingController _controllerMensagem = TextEditingController();
+  late ModeloUsuario _usuarioRemetente;
+  late ModeloUsuario _usuarioDestinatario;
+
+  _enviarMensagem(){
+        String textoMensagem = _controllerMensagem.text;
+        if(textoMensagem.isNotEmpty){
+          String idUsuarioRemetente = _usuarioRemetente.idUsuario;
+          ModeloMensagem mensagem = ModeloMensagem(
+            idUsuarioRemetente,
+            textoMensagem,
+            Timestamp.now().toString()
+          );
+
+          // SALVANDO MENSAGEM
+          String idUsuarioDestinatario = _usuarioDestinatario.idUsuario;
+          _salvarMensagem(
+            idUsuarioRemetente,
+            idUsuarioDestinatario,
+            mensagem
+          );
+            
+        }
+
+  }
+
+  _salvarMensagem(String idRemetente, String idDestinatario, ModeloMensagem mensagem){
+
+      _db.collection('mensagens')
+      .doc(idRemetente)
+      .collection(idDestinatario)
+      .add( mensagem.toMap() );
+
+      _controllerMensagem.clear();
+
+  }
+
+
+  _recuperarDadosIniciais(){
+        _usuarioRemetente = widget.usuarioRemetente;
+        _usuarioDestinatario = widget.usuarioDestinatario;
+  }
+
+
+  @override
+  void initState() {
+   
+    super.initState();
+     _recuperarDadosIniciais();
+  }
 
   
   @override
@@ -51,6 +114,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
                     Icon(Icons.insert_emoticon),
                     SizedBox(width: 4,),
                     Expanded(child: TextField(
+                      controller: _controllerMensagem,
                       decoration: InputDecoration(
                         hintText: 'Digite uma mensagem',
                         border: InputBorder.none
@@ -69,7 +133,9 @@ class _ListaMensagensState extends State<ListaMensagens> {
                   Icons.send,
                   color: Colors.white,
                 ),
-                onPressed: (){},
+                onPressed: (){
+                  _enviarMensagem();
+                },
                 mini: true,
               )
             ],
