@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/modelos/mensagem.dart';
@@ -25,6 +27,9 @@ class _ListaMensagensState extends State<ListaMensagens> {
   TextEditingController _controllerMensagem = TextEditingController();
   late ModeloUsuario _usuarioRemetente;
   late ModeloUsuario _usuarioDestinatario;
+
+  StreamController _stController = StreamController<QuerySnapshot>.broadcast();
+  
 
   _enviarMensagem(){
         String textoMensagem = _controllerMensagem.text;
