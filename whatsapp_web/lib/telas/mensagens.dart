@@ -85,7 +85,7 @@ class _TelaMensagensState extends State<TelaMensagens> {
       body: SafeArea(
         child: ListaMensagens(
           usuarioRemetente: _usuarioRemetente,
-          usuarioDestinatario: _usuarioRemetente,
+          usuarioDestinatario: _usuarioDestinatario,
         ),
       ),
     );

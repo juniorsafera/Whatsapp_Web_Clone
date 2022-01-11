@@ -43,7 +43,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
       _salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
 
       // SALVANDO MENSAGEM PARA DESTINATARIO
-      // _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+      _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
     }
   }
 
