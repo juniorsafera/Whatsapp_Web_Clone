@@ -38,9 +38,12 @@ class _ListaMensagensState extends State<ListaMensagens> {
       ModeloMensagem mensagem = ModeloMensagem(
           idUsuarioRemetente, textoMensagem, Timestamp.now().toString());
 
-      // SALVANDO MENSAGEM
+      // SALVANDO MENSAGEM PARA REMETENTE
       String idUsuarioDestinatario = _usuarioDestinatario.idUsuario;
       _salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
+
+      // SALVANDO MENSAGEM PARA DESTINATARIO
+      // _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
     }
   }
 
@@ -127,39 +130,40 @@ class _ListaMensagensState extends State<ListaMensagens> {
                   } else {
                     QuerySnapshot qs = snapshot.data as QuerySnapshot;
                     List<DocumentSnapshot> listaMensagens = qs.docs.toList();
-                      return Expanded(child:
-                       ListView.builder( 
-                         itemCount: qs.docs.length,
-                         itemBuilder: (context, indice){
-                            DocumentSnapshot itemMensagem = listaMensagens[indice];
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: qs.docs.length,
+                        itemBuilder: (context, indice) {
+                          DocumentSnapshot itemMensagem =
+                              listaMensagens[indice];
 
-                            Alignment alinhamento = Alignment.bottomLeft;
-                            Color cor = Colors.white;
-                            Size largura = MediaQuery.of(context).size * 0.8; // 80%
+                          Alignment alinhamento = Alignment.bottomLeft;
+                          Color cor = Colors.white;
+                          Size largura =
+                              MediaQuery.of(context).size * 0.8; // 80%
 
-                            if( _usuarioRemetente.idUsuario == itemMensagem["idUsuario"]){
-                                    alinhamento = Alignment.bottomRight;
-                                    cor = Color(0xffd2ffa5);
-                            }
-                            
-                            return Align(
-                              alignment: alinhamento ,
-                              child: Container(
-                                constraints: BoxConstraints.loose(largura),
-                                decoration: BoxDecoration(
+                          if (_usuarioRemetente.idUsuario ==
+                              itemMensagem["idUsuario"]) {
+                            alinhamento = Alignment.bottomRight;
+                            cor = Color(0xffd2ffa5);
+                          }
+
+                          return Align(
+                            alignment: alinhamento,
+                            child: Container(
+                              constraints: BoxConstraints.loose(largura),
+                              decoration: BoxDecoration(
                                   color: cor,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(8)
-                                  )
-                                ),
-                                padding: EdgeInsets.all(16),
-                                margin: EdgeInsets.all(6),
-                                child: Text(itemMensagem["texto"]),
-                              ) ,
-                              );
-                         },
-                        ),
-                       );
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              padding: EdgeInsets.all(16),
+                              margin: EdgeInsets.all(6),
+                              child: Text(itemMensagem["texto"]),
+                            ),
+                          );
+                        },
+                      ),
+                    );
                   }
               }
             },
