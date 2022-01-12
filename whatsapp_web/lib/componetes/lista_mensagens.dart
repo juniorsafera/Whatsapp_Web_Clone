@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+//import 'package:flutter/widgets.dart';
 import 'package:whatsapp_web/modelos/mensagem.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
@@ -25,6 +25,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
   TextEditingController _controllerMensagem = TextEditingController();
+  ScrollController _scController = ScrollController();
   late ModeloUsuario _usuarioRemetente;
   late ModeloUsuario _usuarioDestinatario;
 
@@ -74,11 +75,15 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
     _streamMensagens = str.listen((dados) {
       _stController.add(dados);
+      Timer(Duration(seconds: 0), () {
+        _scController.jumpTo(_scController.position.maxScrollExtent);
+      });
     });
   }
 
   @override
   void dispose() {
+    _scController.dispose();
     _streamMensagens.cancel();
     super.dispose();
   }
@@ -132,6 +137,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
                     List<DocumentSnapshot> listaMensagens = qs.docs.toList();
                     return Expanded(
                       child: ListView.builder(
+                        controller: _scController,
                         itemCount: qs.docs.length,
                         itemBuilder: (context, indice) {
                           DocumentSnapshot itemMensagem =
