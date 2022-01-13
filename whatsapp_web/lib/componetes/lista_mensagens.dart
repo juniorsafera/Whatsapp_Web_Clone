@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/modelos/conversa.dart';
 //import 'package:flutter/widgets.dart';
 import 'package:whatsapp_web/modelos/mensagem.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
@@ -39,12 +40,30 @@ class _ListaMensagensState extends State<ListaMensagens> {
       ModeloMensagem mensagem = ModeloMensagem(
           idUsuarioRemetente, textoMensagem, Timestamp.now().toString());
 
-      // SALVANDO MENSAGEM PARA REMETENTE
+      // SALVANDO MENSAGEM E CONVERSA PARA REMETENTE
       String idUsuarioDestinatario = _usuarioDestinatario.idUsuario;
       _salvarMensagem(idUsuarioRemetente, idUsuarioDestinatario, mensagem);
 
-      // SALVANDO MENSAGEM PARA DESTINATARIO
+      ModeloConversa conversaRemetente = ModeloConversa(
+          _usuarioRemetente.idUsuario,
+          _usuarioDestinatario.idUsuario,
+          mensagem.texto,
+          _usuarioDestinatario.nome,
+          _usuarioDestinatario.email,
+          _usuarioDestinatario.imagemPerfil);
+      _salvarConversa(conversaRemetente);
+
+      // SALVANDO MENSAGEM E CONVERSA PARA DESTINATARIO
       _salvarMensagem(idUsuarioDestinatario, idUsuarioRemetente, mensagem);
+
+      ModeloConversa conversaDestinatario = ModeloConversa(
+          _usuarioDestinatario.idUsuario,
+          _usuarioRemetente.idUsuario,
+          mensagem.texto,
+          _usuarioDestinatario.nome,
+          _usuarioDestinatario.email,
+          _usuarioDestinatario.imagemPerfil);
+      _salvarConversa(conversaDestinatario);
     }
   }
 
@@ -57,6 +76,15 @@ class _ListaMensagensState extends State<ListaMensagens> {
         .add(mensagem.toMap());
 
     _controllerMensagem.clear();
+  }
+
+  _salvarConversa(ModeloConversa conversa) {
+    _db
+        .collection('conversas')
+        .doc(conversa.idRemetente)
+        .collection('ultimas_Mensagens')
+        .doc(conversa.idDestinatario)
+        .set(conversa.toMap());
   }
 
   _recuperarDadosIniciais() {
