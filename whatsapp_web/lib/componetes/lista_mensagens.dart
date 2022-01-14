@@ -103,7 +103,7 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
     _streamMensagens = str.listen((dados) {
       _stController.add(dados);
-      Timer(Duration(seconds: 0), () {
+      Timer(Duration(seconds: 1), () {
         _scController.jumpTo(_scController.position.maxScrollExtent);
       });
     });
