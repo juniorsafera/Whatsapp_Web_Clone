@@ -119,6 +119,8 @@ class _TelaLoginState extends State<TelaLogin> {
           }).onError((e, s) {
             if (e != null) {
               print("Usuario não encontrado!");
+              // DIRECIONAR PARA TELA LOGIN
+              Navigator.pushReplacementNamed(context, "/login");
               showDialog(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
