@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/componetes/area_lateral_conversas.dart';
+import 'package:whatsapp_web/componetes/area_lateral_mensagens.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
 
 class HomeDesktop extends StatefulWidget {
@@ -32,16 +34,8 @@ class _HomeDesktopState extends State<HomeDesktop> {
                 right: 20,
                 child: Row(
                   children: [
-                    Expanded(
-                        flex: 4,
-                        child: Container(
-                          color: Colors.white,
-                        )),
-                    Expanded(
-                        flex: 6,
-                        child: Container(
-                          color: Colors.orange[50],
-                        )),
+                    Expanded(flex: 4, child: AreaLateralConversas()),
+                    Expanded(flex: 6, child: AreaLateralMensagens()),
                   ],
                 ))
           ],
