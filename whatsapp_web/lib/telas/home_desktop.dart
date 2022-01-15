@@ -11,10 +11,41 @@ class HomeDesktop extends StatefulWidget {
 class _HomeDesktopState extends State<HomeDesktop> {
   @override
   Widget build(BuildContext context) {
+    final largura = MediaQuery.of(context).size.width;
+    final altura = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         color: PaletaCores.corFundo,
-        child: Container(),
+        child: Stack(
+          children: [
+            Positioned(
+              child: Container(
+                color: PaletaCores.corPrimaria,
+                width: largura,
+                height: altura * 0.2, // 20%
+              ),
+            ),
+            Positioned(
+                top: 20,
+                bottom: 20,
+                left: 20,
+                right: 20,
+                child: Row(
+                  children: [
+                    Expanded(
+                        flex: 4,
+                        child: Container(
+                          color: Colors.white,
+                        )),
+                    Expanded(
+                        flex: 6,
+                        child: Container(
+                          color: Colors.orange[50],
+                        )),
+                  ],
+                ))
+          ],
+        ),
       ),
     );
   }

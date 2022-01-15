@@ -20,7 +20,7 @@ class _ListaConversasState extends State<ListaConversas> {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   late ModeloUsuario _usuarioRemetente;
-  late ModeloUsuario _usuarioDestinatario;
+  // late ModeloUsuario _usuarioDestinatario;
 
   StreamController _stController = StreamController<QuerySnapshot>.broadcast();
   late StreamSubscription _streamConversas;
