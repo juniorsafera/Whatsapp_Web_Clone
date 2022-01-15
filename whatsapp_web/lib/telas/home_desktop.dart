@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_web/outros/paleta_cores.dart';
 
 class HomeDesktop extends StatefulWidget {
   const HomeDesktop({Key? key}) : super(key: key);
@@ -11,7 +12,10 @@ class _HomeDesktopState extends State<HomeDesktop> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Desktop')),
+      body: Container(
+        color: PaletaCores.corFundo,
+        child: Container(),
+      ),
     );
   }
 }
