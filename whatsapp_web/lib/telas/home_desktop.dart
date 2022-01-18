@@ -40,6 +40,7 @@ class _HomeDesktopState extends State<HomeDesktop> {
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
+     
     return Scaffold(
       body: Container(
         color: PaletaCores.corFundo,

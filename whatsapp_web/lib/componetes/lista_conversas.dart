@@ -5,6 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
+import 'package:whatsapp_web/outros/responsivo.dart';
+import 'package:provider/provider.dart';
+import 'package:whatsapp_web/provider/conversa_provider.dart';
 
 class ListaConversas extends StatefulWidget {
   const ListaConversas({
@@ -66,6 +69,7 @@ class _ListaConversasState extends State<ListaConversas> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = Responsivo.isMobile(context);
     return StreamBuilder(
       stream: _stController.stream,
       builder: (context, snapshot) {
@@ -117,8 +121,14 @@ class _ListaConversasState extends State<ListaConversas> {
 
                   return ListTile(
                       onTap: () {
-                        Navigator.pushNamed(context, '/mensagens',
+
+                       if(isMobile){
+                           Navigator.pushNamed(context, '/mensagens',
                             arguments: usuarioDestinatario);
+                       } else{
+                         context.read<ConversaProvider>().usuarioDestinatario = usuarioDestinatario;
+                       }
+                       
                       },
                       leading: CircleAvatar(
                         radius: 25,

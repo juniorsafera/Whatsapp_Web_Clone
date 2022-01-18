@@ -11,6 +11,7 @@ class ConversaProvider with ChangeNotifier {
 
     set usuarioDestinatario (ModeloUsuario? usuario){
       _usuarioDestinatario = usuario;
+      notifyListeners();
     }
 
 }
