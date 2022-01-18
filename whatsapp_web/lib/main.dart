@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
+import 'package:whatsapp_web/provider/conversa_provider.dart';
 import 'package:whatsapp_web/rotas.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +19,7 @@ void main() {
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) =>  ,
+      create: (context) => ConversaProvider()  ,
             child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: temaPadrao.copyWith(
@@ -30,7 +31,7 @@ void main() {
 
             initialRoute: urlInicial,
             onGenerateRoute: Rotas.gerarRota,
-          ),]
+          ),
           )
   );
 }
