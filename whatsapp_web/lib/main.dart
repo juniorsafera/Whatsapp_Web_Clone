@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
 import 'package:whatsapp_web/rotas.dart';
+import 'package:provider/provider.dart';
 
 final ThemeData temaPadrao = ThemeData();
 void main() {
@@ -15,16 +16,21 @@ void main() {
     urlInicial = "/home";
   }
 
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: temaPadrao.copyWith(
-        colorScheme: temaPadrao.colorScheme.copyWith(
-            primary: PaletaCores.corPrimaria,
-            secondary: PaletaCores.corDestaque)),
-    title: "WhatsApp Web",
-    //   home: TelaLogin(),
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) =>  ,
+            child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: temaPadrao.copyWith(
+                colorScheme: temaPadrao.colorScheme.copyWith(
+                    primary: PaletaCores.corPrimaria,
+                    secondary: PaletaCores.corDestaque)),
+            title: "WhatsApp Web",
+            //   home: TelaLogin(),
 
-    initialRoute: urlInicial,
-    onGenerateRoute: Rotas.gerarRota,
-  ));
+            initialRoute: urlInicial,
+            onGenerateRoute: Rotas.gerarRota,
+          ),]
+          )
+  );
 }
