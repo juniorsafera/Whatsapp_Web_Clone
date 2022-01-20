@@ -65,7 +65,7 @@ class _ListaConversasState extends State<ListaConversas> {
   void initState() {
     super.initState();
     _recuperarDadosIniciais();
-    print("init state!");
+    
   }
 
   @override
