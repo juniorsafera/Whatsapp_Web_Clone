@@ -5,8 +5,8 @@ import 'package:whatsapp_web/componetes/area_lateral_conversas.dart';
 import 'package:whatsapp_web/componetes/area_lateral_mensagens.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
-import 'package:provider/provider.dart';
-import 'package:whatsapp_web/provider/conversa_provider.dart';
+//import 'package:provider/provider.dart';
+//import 'package:whatsapp_web/provider/conversa_provider.dart';
 
 class HomeDesktop extends StatefulWidget {
   const HomeDesktop({Key? key}) : super(key: key);
@@ -42,8 +42,6 @@ class _HomeDesktopState extends State<HomeDesktop> {
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
-    ModeloUsuario? usuarioDestinatario =
-        context.watch<ConversaProvider>().usuarioDestinatario;
 
     return Scaffold(
       body: Container(
@@ -53,12 +51,10 @@ class _HomeDesktopState extends State<HomeDesktop> {
             Positioned(
               top: 0,
               child: Container(
-                  color: PaletaCores.corPrimaria,
-                  width: largura,
-                  height: altura * 0.2, // 20%
-                  child: usuarioDestinatario != null
-                      ? Text(usuarioDestinatario.nome)
-                      : Text("Nenhum usuário selecionado!")),
+                color: PaletaCores.corPrimaria,
+                width: largura,
+                height: altura * 0.2, // 20%
+              ),
             ),
             Positioned(
                 top: 20,
@@ -72,7 +68,11 @@ class _HomeDesktopState extends State<HomeDesktop> {
                         child: AreaLateralConversas(
                           usuarioLogado: _usuarioLogado,
                         )),
-                    Expanded(flex: 6, child: AreaLateralMensagens()),
+                    Expanded(
+                        flex: 6,
+                        child: AreaLateralMensagens(
+                          usuarioLogado: _usuarioLogado,
+                        )),
                   ],
                 ))
           ],

@@ -65,7 +65,11 @@ class _HomeTabletState extends State<HomeTablet> {
                         child: AreaLateralConversas(
                           usuarioLogado: _usuarioLogado,
                         )),
-                    Expanded(flex: 6, child: AreaLateralMensagens()),
+                    Expanded(
+                        flex: 6,
+                        child: AreaLateralMensagens(
+                          usuarioLogado: _usuarioLogado,
+                        )),
                   ],
                 ))
           ],

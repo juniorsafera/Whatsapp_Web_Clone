@@ -7,6 +7,8 @@ import 'package:whatsapp_web/modelos/conversa.dart';
 import 'package:whatsapp_web/modelos/mensagem.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
+import 'package:provider/provider.dart';
+import 'package:whatsapp_web/provider/conversa_provider.dart';
 
 class ListaMensagens extends StatefulWidget {
   final ModeloUsuario usuarioRemetente;
@@ -109,6 +111,15 @@ class _ListaMensagensState extends State<ListaMensagens> {
     });
   }
 
+  _atualizarListenerMensagens() {
+    ModeloUsuario? usuarioDestinatario =
+        context.watch<ConversaProvider>().usuarioDestinatario;
+    if (usuarioDestinatario != null) {
+      _usuarioDestinatario = usuarioDestinatario;
+      _recuperarDadosIniciais();
+    }
+  }
+
   @override
   void dispose() {
     _scController.dispose();
@@ -120,6 +131,12 @@ class _ListaMensagensState extends State<ListaMensagens> {
   void initState() {
     super.initState();
     _recuperarDadosIniciais();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _atualizarListenerMensagens();
   }
 
   @override
