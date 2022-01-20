@@ -18,26 +18,25 @@ void main() {
     urlInicial = "/home";
   }
 
- // atalho para consertar botao espaço em caixa de textos no scroll 
-  final atalhos = WidgetsApp.defaultShortcuts;
-  atalhos[LogicalKeySet(LogicalKeyboardKey.space)] = ActivateIntent();
+  // atalho para consertar botao espaço em caixa de textos no scroll
+//  final atalhos = WidgetsApp.defaultShortcuts;
+//  atalhos[LogicalKeySet(LogicalKeyboardKey.space)] = ActivateIntent();
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ConversaProvider()  ,
-            child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: temaPadrao.copyWith(
-                colorScheme: temaPadrao.colorScheme.copyWith(
-                    primary: PaletaCores.corPrimaria,
-                    secondary: PaletaCores.corDestaque)),
-                    shortcuts: atalhos,
-            title: "WhatsApp Web",
-            //   home: TelaLogin(),
+  runApp(ChangeNotifierProvider(
+    create: (context) => ConversaProvider(),
+    child: MaterialApp(
+     // shortcuts: atalhos,
+      title: "WhatsApp Web",
+      debugShowCheckedModeBanner: false,
+      theme: temaPadrao.copyWith(
+          colorScheme: temaPadrao.colorScheme.copyWith(
+              primary: PaletaCores.corPrimaria,
+              secondary: PaletaCores.corDestaque)),
 
-            initialRoute: urlInicial,
-            onGenerateRoute: Rotas.gerarRota,
-          ),
-          )
-  );
+      //   home: TelaLogin(),
+
+      initialRoute: urlInicial,
+      onGenerateRoute: Rotas.gerarRota,
+    ),
+  ));
 }
