@@ -60,8 +60,9 @@ class _ListaMensagensState extends State<ListaMensagens> {
 
       ModeloConversa conversaDestinatario = ModeloConversa(
           
-          _usuarioRemetente.idUsuario,
+         
           _usuarioDestinatario.idUsuario,
+           _usuarioRemetente.idUsuario,
           mensagem.texto,
           _usuarioDestinatario.nome,
           _usuarioDestinatario.email,
