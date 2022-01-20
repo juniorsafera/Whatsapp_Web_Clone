@@ -64,9 +64,9 @@ class _ListaMensagensState extends State<ListaMensagens> {
           idUsuarioDestinatario ,
            idUsuarioRemetente,
           mensagem.texto,
-          _usuarioDestinatario.nome,
-          _usuarioDestinatario.email,
-          _usuarioDestinatario.imagemPerfil);
+          _usuarioRemetente.nome,
+          _usuarioRemetente.email,
+          _usuarioRemetente.imagemPerfil);
       _salvarConversa(conversaDestinatario);
       
     }
