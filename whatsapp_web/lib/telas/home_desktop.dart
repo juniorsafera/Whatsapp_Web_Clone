@@ -5,6 +5,8 @@ import 'package:whatsapp_web/componetes/area_lateral_conversas.dart';
 import 'package:whatsapp_web/componetes/area_lateral_mensagens.dart';
 import 'package:whatsapp_web/modelos/usuario.dart';
 import 'package:whatsapp_web/outros/paleta_cores.dart';
+import 'package:provider/provider.dart';
+import 'package:whatsapp_web/provider/conversa_provider.dart';
 
 class HomeDesktop extends StatefulWidget {
   const HomeDesktop({Key? key}) : super(key: key);
@@ -40,7 +42,9 @@ class _HomeDesktopState extends State<HomeDesktop> {
   Widget build(BuildContext context) {
     final largura = MediaQuery.of(context).size.width;
     final altura = MediaQuery.of(context).size.height;
-     
+    ModeloUsuario? usuarioDestinatario =
+        context.watch<ConversaProvider>().usuarioDestinatario;
+
     return Scaffold(
       body: Container(
         color: PaletaCores.corFundo,
@@ -49,10 +53,12 @@ class _HomeDesktopState extends State<HomeDesktop> {
             Positioned(
               top: 0,
               child: Container(
-                color: PaletaCores.corPrimaria,
-                width: largura,
-                height: altura * 0.2, // 20%
-              ),
+                  color: PaletaCores.corPrimaria,
+                  width: largura,
+                  height: altura * 0.2, // 20%
+                  child: usuarioDestinatario != null
+                      ? Text(usuarioDestinatario.nome)
+                      : Text("Nenhum usuário selecionado!")),
             ),
             Positioned(
                 top: 20,
