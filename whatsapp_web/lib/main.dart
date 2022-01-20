@@ -19,13 +19,18 @@ void main() {
   }
 
   // atalho para consertar botao espaço em caixa de textos no scroll
-//  final atalhos = WidgetsApp.defaultShortcuts;
-//  atalhos[LogicalKeySet(LogicalKeyboardKey.space)] = ActivateIntent();
+//final atalhos = WidgetsApp.defaultShortcuts;
+  // atalhos[LogicalKeySet(LogicalKeyboardKey.space)] = ActivateIntent();
+  //atalhos[LogicalKeySet(LogicalKeyboardKey.space)] = ActivateIntent();
 
   runApp(ChangeNotifierProvider(
     create: (context) => ConversaProvider(),
     child: MaterialApp(
-     // shortcuts: atalhos,
+      
+      shortcuts: <LogicalKeySet, Intent>{
+        LogicalKeySet(LogicalKeyboardKey.space): ActivateIntent(),
+      },
+
       title: "WhatsApp Web",
       debugShowCheckedModeBanner: false,
       theme: temaPadrao.copyWith(
