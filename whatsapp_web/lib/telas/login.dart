@@ -17,11 +17,11 @@ class TelaLogin extends StatefulWidget {
 
 class _TelaLoginState extends State<TelaLogin> {
   TextEditingController _controllerNome =
-      TextEditingController(text: 'Junior Santos');
+      TextEditingController(text: '');
   TextEditingController _controllerEmail =
-      TextEditingController(text: 'junior@gmail.com');
+      TextEditingController(text: '');
   TextEditingController _controllerSenha =
-      TextEditingController(text: '12345678');
+      TextEditingController(text: '');
   bool _cadastroUsuario = false;
 
   Uint8List? _imagemSelecionada;
